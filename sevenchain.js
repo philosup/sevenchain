@@ -52,6 +52,7 @@ app.get('/', function(req, res){
 app.get('/get/tablerows/:name/:id/:limit', function(req, res){
 	eos_api.getTableRows(true, 'seven.code', 'seven.code', req.params.name, 'id', req.params.id, -1, req.params.limit)
 		.then(result => {
+			console.log(result.rows.length);
 			res.send(result);
 		}).catch(e => {
 			console.error(e);
