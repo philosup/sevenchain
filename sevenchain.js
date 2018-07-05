@@ -18,11 +18,11 @@ var express = require('express');
 var app = express();
 var bodyParser = require('body-parser-bigint');
 
+var endpoint = 'http://10.44.1.107:8888';
 var EosApi = require('eosjs-api');
 var Eos = require('eosjs');
 eos_config = {
-	httpEndpoint: 'http://10.44.1.107:8888',
-	//httpEndpoint: 'http://127.0.0.1:8888',
+	httpEndpoint: endpoint,
 	chainId: 'cf057bbfb72640471fd910bcb67639c22df9f92470936cddc1ade0e2f2e7dc4f',
 	keyProvider: [ '5KQwrPbwdL6PhXujxW37FSSQZ1JiwsST4cqQzDeyXtP79zkvFD3' ],
 	sign: true,
@@ -31,8 +31,7 @@ eos_config = {
 
 
 var eos_api = EosApi({ 
-	//httpEndpoint: 'http://127.0.0.1:8888' 
-	httpEndpoint: 'http://10.44.1.107:8888'
+	httpEndpoint: endpoint
 });
 var eos = Eos(eos_config);
 
