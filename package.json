@@ -1,12 +1,14 @@
 {
-  "name": "Sites",
+  "name": "sevenchain",
   "version": "1.0.0",
   "main": "test.js",
   "dependencies": {
     "body-parser": "^1.18.3",
+    "body-parser-bigint": "^1.13.2",
     "content-security-policy": "^0.3.3",
     "eosjs": "^15.0.1",
-    "express": "^4.16.3"
+    "express": "^4.16.3",
+    "json-bigint": "^0.3.0"
   },
   "devDependencies": {},
   "scripts": {

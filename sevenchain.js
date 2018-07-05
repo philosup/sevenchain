@@ -18,7 +18,8 @@ var express = require('express');
 var app = express();
 var bodyParser = require('body-parser-bigint');
 
-var endpoint = 'http://10.44.1.107:8888';
+//var endpoint = 'http://10.44.1.107:8888';
+var endpoint = 'http://10.110.31.38:8888';
 var EosApi = require('eosjs-api');
 var Eos = require('eosjs');
 eos_config = {
@@ -109,6 +110,41 @@ app.post('/pokersave', function(req, res){
 	});
 });
 
+app.post('/gachasave', function(req, res){
+	var json = JSON.parse(req.body);
+	eos.contract('seven.code').then(function(sevenchain){
+		return sevenchain.startitem(json.id, json.participants, json.rng,{authorization:['seven.code@active']});
+	}).then(function(result){
+      		res.send({result:"ok"});
+	}).catch(e=>{
+		console.error("catch : " + e);
+      		res.send({result:"error"});
+	});
+});
+
+app.get('/itemlogtest', function(req, res){
+	var json = {id:'box4', iteminfos:[{name:'da', count:1}, {name:'b', count:2}, {name:'c', count:4}]};
+	eos.contract('seven.code').then(function(sevenchain){
+		return sevenchain.saveiteminfo(json.id, json.iteminfos,{authorization:['seven.code@active']});
+	}).then(function(result){
+            console.log(JSON.stringify(result, null, 2));
+      		res.send({result:"ok"});
+	}).catch(e=>{
+		console.error("catch : " + e);
+      		res.send({result:"error"});
+	});
+});
+app.post('/itemlog', function(req, res){
+	var json = JSON.parse(req.body);
+	eos.contract('seven.code').then(function(sevenchain){
+		return sevenchain.saveiteminfo(json.id, json.iteminfos,{authorization:['seven.code@active']});
+	}).then(function(result){
+      		res.send({result:"ok"});
+	}).catch(e=>{
+		console.error("catch : " + e);
+      		res.send({result:"error"});
+	});
+});
 var server = app.listen(80, function(){
 	var host = server.address().address
 	var port = server.address().port
