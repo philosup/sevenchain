@@ -91,7 +91,7 @@ app.post('/slotsave', function(req, res){
 		//return sevenchain.startslot({id:id, participants:JSON.parse(participants), rng:rng},{authorization:['seven.code@active']});
 	}).then(function(result){
 		//console.log("result : " + result);
-      		res.send({result:"ok"});
+      		res.send({result:"ok", transaction_id:result.transaction_id});
 	}).catch(e=>{
 		console.error("catch : " + e);
       		res.send({result:"error"});
@@ -103,7 +103,7 @@ app.post('/pokersave', function(req, res){
 	eos.contract('seven.code').then(function(sevenchain){
 		return sevenchain.startpoker(json.id, json.participants, json.rng,{authorization:['seven.code@active']});
 	}).then(function(result){
-      		res.send({result:"ok"});
+      		res.send({result:"ok", transaction_id:result.transaction_id});
 	}).catch(e=>{
 		console.error("catch : " + e);
       		res.send({result:"error"});
@@ -127,7 +127,7 @@ app.post('/gachasave', function(req, res){
 	eos.contract('seven.code').then(function(sevenchain){
 		return sevenchain.startitem(json.id, json.participants, json.rng,{authorization:['seven.code@active']});
 	}).then(function(result){
-      		res.send({result:"ok"});
+      		res.send({result:"ok", transaction_id:result.transaction_id});
 	}).catch(e=>{
 		console.error("catch : " + e);
       		res.send({result:"error"});
@@ -152,12 +152,18 @@ app.post('/gachalog', function(req, res){
 	eos.contract('seven.code').then(function(sevenchain){
 		return sevenchain.saveiteminfo(json.id, json.iteminfos,{authorization:['seven.code@active']});
 	}).then(function(result){
-      		res.send({result:"ok"});
+      		res.send({result:"ok", transaction_id:result.transaction_id});
 	}).catch(e=>{
 		console.error("catch : " + e);
       		res.send({result:"error"});
 	});
 });
+
+app.get('/get/actions/:account/:pos/:offset', function(req, res){
+    eos_api.getActions(req.params.account,req.params.pos,req.params.offset).then(result => {
+       res.send(JSON.stringify(result, null, 3));
+    });
+ });
 var server = app.listen(80, function(){
 	var host = server.address().address
 	var port = server.address().port
