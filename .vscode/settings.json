@@ -8,6 +8,7 @@
         "set": "cpp",
         "string": "cpp",
         "string_view": "cpp",
-        "typeinfo": "cpp"
+        "typeinfo": "cpp",
+        "__locale": "cpp"
     }
 }
